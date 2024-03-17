@@ -26,10 +26,11 @@ public class StringBuilderTest {
         return str.toString();
     }
 
+
     public void undo() {
         if (snapshotCount > 0) {
             snapshotCount--;
-            str.setLength(0); // Очищаем текущий StringBuilder
+            str.setLength(0);
             str.append(snapshot.get(snapshotCount)); // Восстанавливаем предыдущий снимок
         }
     }
@@ -37,7 +38,7 @@ public class StringBuilderTest {
     public void saveSnapshot() {
         snapshotCount++;
         if (snapshotCount < snapshot.size()) {
-            snapshot.subList(snapshotCount, snapshot.size()).clear(); // тут нужно подумать над логикой
+            snapshot.subList(snapshotCount, snapshot.size());
         }
         snapshot.add(new StringBuilder(str));
     }
@@ -47,13 +48,7 @@ public class StringBuilderTest {
         sb.append("Hello ");
         sb.saveSnapshot();
         System.out.println(sb);
-
-
-        sb.append("world!");
-        sb.saveSnapshot();
-        System.out.println(sb);
-
-        sb.delete(6, 12);
+        sb.append("world! ");
         System.out.println(sb);
 
         sb.undo();
