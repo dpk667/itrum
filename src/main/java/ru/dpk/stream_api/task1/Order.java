@@ -1,4 +1,4 @@
-package ru.dpk.stream_api;
+package ru.dpk.stream_api.task1;
 
 class Order {
     private String product;

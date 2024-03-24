@@ -1,10 +1,9 @@
-package ru.dpk.stream_api;
+package ru.dpk.stream_api.task1;
 
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class Test {
     public static void main(String[] args) {
@@ -18,9 +17,7 @@ public class Test {
                 new Order("Smartphone", 900.0)
         );
 
-
         // Группируйте заказы по продуктам. +
-        // группируем заказы по продукту
         Map<String, List<Order>> orderByProduct = orders.stream().collect(Collectors.groupingBy(Order::getProduct));
 
         // вывод результата группировки
@@ -58,13 +55,34 @@ public class Test {
         }
 
         System.out.println("\n" + "Выберите три самых дорогих продукта");
+
         //////////////////////////
+
         //Выберите три самых дорогих продукта.
         sortProducts
                 .stream()
                 .limit(3)
                 .forEach(System.out::println);
 
+
+        //Выведите результат: список трех самых дорогих продуктов и их общая стоимость.
+
+        ///////////////////////////////////////////////////
+
+        List<Order> sortedOrders = orders.stream()
+                .sorted(Comparator.comparing(Order::getCost).reversed())
+                .collect(Collectors.toList());
+
+        List<Order> topThreeOrders = sortedOrders.stream()
+                .limit(3)
+                .collect(Collectors.toList());
+
+        //  общая стоимость трех самых дорогих продуктов
+        double totalCost = topThreeOrders.stream()
+                .mapToDouble(Order::getCost)
+                .sum();
+
+        System.out.println("\n" + "Общая стоимость трех самых дорогих продуктов: " + totalCost);
 
     }
 }
